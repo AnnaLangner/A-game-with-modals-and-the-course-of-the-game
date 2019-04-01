@@ -63,11 +63,13 @@ var playerMove = function(move) {
   handlePlayerMove(moveNumber);
 }
 
-var btnChoice = document.querySelectorAll('.player-move'); 
+var btnChoice = document.querySelectorAll('#player-move'); 
 
 for (var i = 0; i < btnChoice.length; i++) {
   var dataMove = btnChoice[i].getAttribute('data-move');
-  btnChoice[i].addEventListener('click', playerMove(dataMove));
+  btnChoice[i].addEventListener('click', function(){
+    playerMove(dataMove);
+  });
 };
 
 newBtn.addEventListener('click', function() {  
