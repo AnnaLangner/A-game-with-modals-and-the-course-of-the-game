@@ -32,18 +32,6 @@ var decideWinner = function(playerChoice, computerChoice) {
   }
 };
 
-var playerMovePaper = function(){
-  handlePlayerMove(1);
-};
-
-var playerMoveRock = function(){
-  handlePlayerMove(2);
-};
-
-var playerMoveScissors = function(){
-  handlePlayerMove(3);
-};
-
 var handlePlayerMove = function (playerChoice) {
   if (gameOver == false) {
     var computerChoice = randomNumber();
@@ -62,9 +50,25 @@ var handlePlayerMove = function (playerChoice) {
   }
 };
 
-btnPaper.addEventListener('click', playerMovePaper);
-btnRock.addEventListener('click', playerMoveRock);
-btnScissors.addEventListener('click', playerMoveScissors);
+var playerMove = function(move) {
+  console.log ('test');
+  var moveNumber;
+  if (move == 'paper') {
+    moveNumber = 1;
+  } else if (move == 'rock') {
+    moveNumber = 2;
+  } else if (move == 'scissors') {
+    moveNumber = 3;
+  }
+  handlePlayerMove(moveNumber);
+}
+
+var btnChoice = document.querySelectorAll('.player-move'); 
+
+for (var i = 0; i < btnChoice.length; i++) {
+  var dataMove = btnChoice[i].getAttribute('data-move');
+  btnChoice[i].addEventListener('click', playerMove(dataMove));
+};
 
 newBtn.addEventListener('click', function() {  
   var value = window.prompt('Enter the number of rounds won, which ends the game'); 
@@ -77,7 +81,8 @@ newBtn.addEventListener('click', function() {
       winsPlayer = 0;
       winsComputer = 0;
       output.innerHTML = '';
+      result.innerHTML = winsPlayer + '-' + winsComputer;
       newGameOutput.innerHTML =  'After ' + value + ' rounds, game is over <br><br>' + newGameOutput.innerHTML;
   };
-  
+
 });
