@@ -41,11 +41,11 @@ var handlePlayerMove = function (playerChoice) {
     output.innerHTML += resultText;
     result.innerHTML = params.winsPlayer + '-' + params.winsComputer;
     if (params.winsPlayer >= params.numberOfRounds) {
-      output.innerHTML += '<br> YOU WON THE ENTIRE GAME! <br>';
       params.gameOver = true;
+      showModal('<br> YOU WON THE ENTIRE GAME! <br>');
     } else if (params.winsComputer >= params.numberOfRounds) {
-      output.innerHTML += '<br> COMPUTER WON THE ENTIRE GAME! <br>';
       params.gameOver = true;
+      showModal('<br> COMPUTER WON THE ENTIRE GAME! <br>');
     }
   } else {
     output.innerHTML += '<br> Game over, please press the new game button! <br>';
@@ -90,3 +90,32 @@ newBtn.addEventListener('click', function() {
   };
 
 });
+
+var showModal = function(text){
+  document.querySelector('#modal-overlay').classList.add('show');
+  document.querySelector('#modal-one').classList.add('show');
+  result.innerHTML = text + '<br>' + params.winsPlayer + '-' + params.winsComputer;
+};
+
+var hideModal = function(event){
+  event.preventDefault();
+  document.querySelector('#modal-overlay').classList.remove('show');
+  document.querySelector('#modal-one').classList.remove('show');
+};
+  
+ var closeButtons = document.querySelectorAll('.modal .close');
+  
+for(var i = 0; i < closeButtons.length; i++){
+  closeButtons[i].addEventListener('click', hideModal);
+}
+  
+document.querySelector('#modal-overlay').addEventListener('click', hideModal);
+  
+var modals = document.querySelectorAll('.modal');
+  
+for(var i = 0; i < modals.length; i++){
+  modals[i].addEventListener('click', function(event){
+  event.stopPropagation();
+  }
+  );
+}

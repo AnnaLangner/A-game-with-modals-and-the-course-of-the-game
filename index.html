@@ -13,13 +13,20 @@
  			<button id="btnRock" class="player-move" data-move="rock">rock</button>
  			<button id="btnScissors" class="player-move" data-move="scissors">scissors</button>
 		</div> 
+		
 		<div id="output"></div>
-		<div id="result"></div>
 
 		<div id="newGame">
 			<button id="newBtn">New Game</button>
 		<div>
 		<div id="newGameOutput"></div>  
+		<div class="overlay" id="modal-overlay">
+			<div class="modal" id="modal-one">
+				<a href="#" class="close">x</a>
+				<div id="result" class="content"></div>
+			</div>
+			
+		</div>
 
     <script  src="js/index.js"></script>
 	</body>
