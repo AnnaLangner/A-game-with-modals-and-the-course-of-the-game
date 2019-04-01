@@ -10,13 +10,13 @@ var newGameOutput = document.getElementById('newGameOutput');
 var newBtn = document.getElementById('newBtn');
 
 /* zmienne globalne */
-
-
-  var winsPlayer = 0;
-  var winsComputer = 0;
-  var numberOfRounds = 999;
-  var gameOver = false;
-  var options = ['paper', 'rock', 'scissors'];
+var params = {
+  winsPlayer : 0,
+  winsComputer : 0,
+  numberOfRounds : 999,
+  gameOver : false,
+  options : ['paper', 'rock', 'scissors']
+};
 
 var randomNumber = function() {
   var number = Math.floor((Math.random() * 3) + 1);
@@ -26,26 +26,26 @@ var randomNumber = function() {
 var decideWinner = function(playerChoice, computerChoice) {
   if (playerChoice === computerChoice) return "No one wins, repeat the game <br>" ;
   else if ((playerChoice === 1 && computerChoice === 2) || (playerChoice === 2 && computerChoice === 3) || (playerChoice === 3 && computerChoice === 1)) {
-      winsPlayer += 1;
-      return 'YOU WIN: you played ' + options[playerChoice-1] +' computer played ' + options[computerChoice-1] +' <br>'
+      params.winsPlayer += 1;
+      return 'YOU WIN: you played ' + params.options[playerChoice-1] +' computer played ' + params.options[computerChoice-1] +' <br>'
   } else {
-      winsComputer += 1;
-      return 'YOU LOST: you played ' + options[playerChoice-1] +' computer played ' + options[computerChoice-1] +' <br>'
+      params.winsComputer += 1;
+      return 'YOU LOST: you played ' + params.options[playerChoice-1] +' computer played ' + params.options[computerChoice-1] +' <br>'
   }
 };
 
 var handlePlayerMove = function (playerChoice) {
-  if (gameOver == false) {
+  if (params.gameOver == false) {
     var computerChoice = randomNumber();
     var resultText = decideWinner(playerChoice, computerChoice);
     output.innerHTML += resultText;
-    result.innerHTML = winsPlayer + '-' + winsComputer;
-    if (winsPlayer >= numberOfRounds) {
+    result.innerHTML = params.winsPlayer + '-' + params.winsComputer;
+    if (params.winsPlayer >= params.numberOfRounds) {
       output.innerHTML += '<br> YOU WON THE ENTIRE GAME! <br>';
-      gameOver = true;
-    } else if (winsComputer >= numberOfRounds) {
+      params.gameOver = true;
+    } else if (params.winsComputer >= params.numberOfRounds) {
       output.innerHTML += '<br> COMPUTER WON THE ENTIRE GAME! <br>';
-      gameOver = true;
+      params.gameOver = true;
     }
   } else {
     output.innerHTML += '<br> Game over, please press the new game button! <br>';
@@ -80,12 +80,12 @@ newBtn.addEventListener('click', function() {
   if (isNaN(value) || value === ''){
 	 newGameOutput.innerHTML = 'the correct number has not been entered <br><br>' +  newGameOutput.innerHTML;
  } else if(value !== null) {
-      numberOfRounds = value;
-      gameOver = false;
-      winsPlayer = 0;
-      winsComputer = 0;
+      params.numberOfRounds = value;
+      params.gameOver = false;
+      params.winsPlayer = 0;
+      params.winsComputer = 0;
       output.innerHTML = '';
-      result.innerHTML = winsPlayer + '-' + winsComputer;
+      result.innerHTML = params.winsPlayer + '-' + params.winsComputer;
       newGameOutput.innerHTML =  'After ' + value + ' rounds, game is over <br><br>' + newGameOutput.innerHTML;
   };
 
