@@ -10,11 +10,13 @@ var newGameOutput = document.getElementById('newGameOutput');
 var newBtn = document.getElementById('newBtn');
 
 /* zmienne globalne */
-var winsPlayer = 0;
-var winsComputer = 0;
-var numberOfRounds = 999;
-var gameOver = false;
-var options = ['paper', 'rock', 'scissors'];
+
+
+  var winsPlayer = 0;
+  var winsComputer = 0;
+  var numberOfRounds = 999;
+  var gameOver = false;
+  var options = ['paper', 'rock', 'scissors'];
 
 var randomNumber = function() {
   var number = Math.floor((Math.random() * 3) + 1);
