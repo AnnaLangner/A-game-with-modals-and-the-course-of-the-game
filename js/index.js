@@ -15,7 +15,8 @@ var params = {
   winsComputer : 0,
   numberOfRounds : 999,
   gameOver : false,
-  options : ['paper', 'rock', 'scissors']
+  options : ['paper', 'rock', 'scissors'],
+  progress : []
 };
 
 var randomNumber = function() {
@@ -53,7 +54,6 @@ var handlePlayerMove = function (playerChoice) {
 };
 
 var playerMove = function(move) {
-  console.log ('test');
   var moveNumber;
   if (move == 'paper') {
     moveNumber = 1;
@@ -63,6 +63,14 @@ var playerMove = function(move) {
     moveNumber = 3;
   }
   handlePlayerMove(moveNumber);
+  /*
+  params.progress.push(objectProgress = {round number : '',
+                                         player movement : '', 
+                                         computer movement : '', 
+                                         the result of the round : '', 
+                                         the result of the game after this round : ''
+                                        });
+*/
 }
 
 var btnChoice = document.querySelectorAll('.player-move'); 
@@ -119,3 +127,7 @@ for(var i = 0; i < modals.length; i++){
   }
   );
 }
+
+// tabela
+
+var table 
