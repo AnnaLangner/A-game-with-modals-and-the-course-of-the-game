@@ -16,7 +16,8 @@ var params = {
   numberOfRounds : 999,
   gameOver : false,
   options : ['paper', 'rock', 'scissors'],
-  progress : []
+  progress : [],
+  roundWinner : ''
 };
 
 var randomNumber = function() {
@@ -25,15 +26,30 @@ var randomNumber = function() {
 };
 
 var decideWinner = function(playerChoice, computerChoice) {
-  if (playerChoice === computerChoice) return "No one wins, repeat the game <br>" ;
+  if (playerChoice === computerChoice) {
+    params.roundWinner = '---' ;
+    return "No one wins, repeat the game <br>" ;
+  }
   else if ((playerChoice === 1 && computerChoice === 2) || (playerChoice === 2 && computerChoice === 3) || (playerChoice === 3 && computerChoice === 1)) {
-      params.winsPlayer += 1;
-      return 'YOU WIN: you played ' + params.options[playerChoice-1] +' computer played ' + params.options[computerChoice-1] +' <br>'
+    params.winsPlayer += 1;
+    params.roundWinner = 'player' ;
+    return 'YOU WIN: you played ' + params.options[playerChoice-1] +' computer played ' + params.options[computerChoice-1] +' <br>'
   } else {
-      params.winsComputer += 1;
-      return 'YOU LOST: you played ' + params.options[playerChoice-1] +' computer played ' + params.options[computerChoice-1] +' <br>'
+    params.winsComputer += 1;
+    params.roundWinner = 'computer' ;
+    return 'YOU LOST: you played ' + params.options[playerChoice-1] +' computer played ' + params.options[computerChoice-1] +' <br>'
   }
 };
+
+var addRoundInfo = function(playerChoice, computerChoice) {
+
+  params.progress.push({
+    player_movement : playerChoice,
+    computer_movement : computerChoice,
+    round_winner : params.roundWinner,
+    round_result : params.winsPlayer + ':' + params.winsComputer
+  })
+}; 
 
 var handlePlayerMove = function (playerChoice) {
   if (params.gameOver == false) {
@@ -48,6 +64,7 @@ var handlePlayerMove = function (playerChoice) {
       params.gameOver = true;
       showModal('<br> COMPUTER WON THE ENTIRE GAME! <br>');
     }
+    addRoundInfo(playerChoice, computerChoice);
   } else {
     output.innerHTML += '<br> Game over, please press the new game button! <br>';
   }
@@ -63,14 +80,6 @@ var playerMove = function(move) {
     moveNumber = 3;
   }
   handlePlayerMove(moveNumber);
-  /*
-  params.progress.push(objectProgress = {round number : '',
-                                         player movement : '', 
-                                         computer movement : '', 
-                                         the result of the round : '', 
-                                         the result of the game after this round : ''
-                                        });
-*/
 }
 
 var btnChoice = document.querySelectorAll('.player-move'); 
@@ -99,7 +108,18 @@ newBtn.addEventListener('click', function() {
 
 });
 
+var generateProgressTable = function() {
+  var tbody = '';
+  params.progress.forEach(function(round, index) {
+    tbody += '<tr><td> ' + index + '</td><td> ' + round.player_movement + '</td><td> ' + round.computer_movement + '</td><td> ' + round.round_winner + '</td><td> ' + round.round_result + '</td></tr>'
+  });
+  params.progress = [] ;
+  return tbody;
+};
+
 var showModal = function(text){
+
+  resultsTableBody.innerHTML = generateProgressTable();
   document.querySelector('#modal-overlay').classList.add('show');
   document.querySelector('#modal-one').classList.add('show');
   result.innerHTML = text + '<br>' + params.winsPlayer + '-' + params.winsComputer;
@@ -127,7 +147,3 @@ for(var i = 0; i < modals.length; i++){
   }
   );
 }
-
-// tabela
-
-var table 
