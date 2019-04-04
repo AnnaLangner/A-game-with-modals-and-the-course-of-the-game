@@ -8,6 +8,7 @@ var output = document.getElementById('output');
 var result = document.getElementById('result');
 var newGameOutput = document.getElementById('newGameOutput');
 var newBtn = document.getElementById('newBtn');
+var resultsTableBody = document.querySelector('.table tbody');
 
 /* zmienne globalne */
 var params = {
